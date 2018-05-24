@@ -31,4 +31,9 @@ public class TestController {
 	public String button() {
 		return "testview/testbutton";
 	}
+	
+	@RequestMapping("/testview/testtable.do")
+	public String tables() {
+		return "analysis/testview/tables";
+	}
 }

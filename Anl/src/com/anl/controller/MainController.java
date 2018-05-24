@@ -9,7 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-	Logger log = Logger.getLogger(this.getClass());
+	
+	@RequestMapping("/mainpage.do")
+	public String mainpage() {
+		return "main";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	@RequestMapping("/analysis/manual.do")
