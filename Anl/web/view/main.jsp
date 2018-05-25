@@ -274,15 +274,15 @@
                     <ul id="sidebarnav">
                         <li class="nav-devider"></li>
                         <li class="nav-label">Anl Data</li>
-                        <li id="side_dataupload"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu" >Data Upload <span class="label label-rouded label-primary pull-right">3</span></span></a>
+                        <li id="side_dataupload"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu" >Data Upload <span class="label label-rouded label-primary pull-right" name="dataon">off</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a id="side_dataupload1" href="/Anl/anldata/dataupload.do">Upload </a></li>
                                 <li><a id="side_dataupload2" href="/Anl/anldata/redirectdatasetting.do">Setting</a></li>
                             </ul>
                         </li>
-                         <li id="side_dataview"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu"  >Data View<span class="label label-rouded label-primary pull-right">2</span></span></a>
+                         <li id="side_dataview"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu"  >Data View<span class="label label-rouded label-primary pull-right" name="dataon">off</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a id="side_dataview1" href="table-bootstrap.html">Basic Table</a></li>
+                                <li><a id="side_dataview1" href="/Anl/anldata/redirectdataview1.do">Basic Table</a></li>
                                 <li><a id="side_dataview2" href="table-datatable.html">Data Tables</a></li>
                             </ul>
                         </li>
@@ -463,5 +463,12 @@
 	
     <script src="/Anl/css/js/custom.min.js"></script>
 </body>
+<script>
+var data = "chcek"+"${data}";
+if (data !="check "){
+	$('span[name=dataon]').html('on')
+}
+
+</script>
 
 </html>

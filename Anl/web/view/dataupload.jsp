@@ -37,8 +37,20 @@
 
 </style>
 </head>
-
 <div class="page-wrapper">
+<!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Data Upload</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Data Upload</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
          <div class="container-fluid">
 			<form action="/Anl/anldata/datasetting.do"  enctype="multipart/form-data" method="post" id="fileform">
 			 	  <input type="file" id="uploadfile" name="uploadfile" required>

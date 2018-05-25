@@ -103,6 +103,18 @@
 <body>
 	
 <div class="page-wrapper">
+<!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Data Setting</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Data Upload</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
          <div class="container-fluid">
 			
 		<div class="card" id="headeroff">	
@@ -181,7 +193,7 @@
 	         <div class="card-title">
 	         	<h3>Column Type Setting</h3></div>
 	         	<div class="card-body">   
-         <form action="step3.do" id="startanlform">			
+         <form action="/Anl/anldata/redirectdataview1.do" id="startanlform">			
 				 <input type="hidden"  name="header" value="t">
 				<div class="typesel">
 					<c:forEach items="${ncolumn }" var="i">

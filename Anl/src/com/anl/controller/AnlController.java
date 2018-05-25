@@ -84,4 +84,17 @@ public class AnlController {
 		}		
 		return "main";
 	}
+	
+	@RequestMapping("/anldata/dataview1.do")
+	public String dataview1(Model model,HttpSession session) {
+		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
+		model.addAttribute("center","dataview1");
+		return "main";
+	}
+	@RequestMapping("/anldata/redirectdataview1.do")
+	public String redirectdataview1(Model model,HttpSession session) {
+		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
+		model.addAttribute("center","dataview1");
+		return "main";
+	}
 }
