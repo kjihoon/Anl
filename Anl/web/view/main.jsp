@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="/Anl/image/png" sizes="16x16" href="/Anl/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Anl/images/favicon.png">
     <title>Anl</title>
     <!-- Bootstrap Core CSS -->
     <link href="/Anl/css/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -274,13 +274,13 @@
                     <ul id="sidebarnav">
                         <li class="nav-devider"></li>
                         <li class="nav-label">Anl Data</li>
-                        <li id="side_dataupload"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu" >Data Upload <span class="label label-rouded label-primary pull-right" name="dataon">off</span></span></a>
+                        <li id="side_dataupload"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu" >Data Upload <span class="label label-rouded pull-right" name="dataon">off</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a id="side_dataupload1" href="/Anl/anldata/dataupload.do">Upload </a></li>
                                 <li><a id="side_dataupload2" href="/Anl/anldata/redirectdatasetting.do">Setting</a></li>
                             </ul>
                         </li>
-                         <li id="side_dataview"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu"  >Data View<span class="label label-rouded label-primary pull-right" name="dataon">off</span></span></a>
+                         <li id="side_dataview"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu"  >Data View<span class="label label-rouded pull-right" name="dataon">off</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a id="side_dataview1" href="/Anl/anldata/redirectdataview1.do">Basic Table</a></li>
                                 <li><a id="side_dataview2" href="table-datatable.html">Data Tables</a></li>
@@ -299,8 +299,7 @@
                         </li>
 						<li  id="side_meanestimator"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu" >Mean Estimator <span class="label label-rouded label-danger pull-right">6</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="uc-calender.html">T-test (one-sample)</a></li>
-                                <li><a href="uc-datamap.html">T-test (two-sample)</a></li>
+                                <li><a href="/Anl/anldata/ttest.do">T-test</a></li>
                                 <li><a href="uc-nestedable.html">ANOVA (One-Way)</a></li>
                                 <li><a href="uc-sweetalert.html">ANOVA (Two-Way)</a></li>
                                 <li><a href="uc-toastr.html">ANOVA (N-Way)</a></li>
@@ -438,6 +437,10 @@
     <!--stickey kit -->
     <script src="/Anl/css/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
+	
+	
+	
+   
 
 
     <!-- Amchart -->
@@ -460,15 +463,30 @@
     <script src="/Anl/css/js/lib/owl-carousel/owl.carousel-init.js"></script>
     <script src="/Anl/css/js/scripts.js"></script>
     <!-- scripit init-->
-	
     <script src="/Anl/css/js/custom.min.js"></script>
+    
+  
+    
+    
 </body>
-<script>
-var data = "chcek"+"${data}";
-if (data !="check "){
+<script> 
+var dataon ="${dataon}";
+if (dataon==""){
+	$('span[name=dataon]').html('off')
+	$('span[name=dataon]').addClass('label-danger')
+}else if(dataon=="1"){
+	$('span[name=dataon]').html('off')
+	$('span[name=dataon]').addClass('label-warning')
+}else{
 	$('span[name=dataon]').html('on')
+	$('span[name=dataon]').addClass('label-primary')
+}
+var warningmsg = "${warning}";
+if (warningmsg !=""){
+	alert(warningmsg);
 }
 
-</script>
 
+
+</script>
 </html>

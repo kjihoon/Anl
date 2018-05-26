@@ -130,7 +130,7 @@
 						</c:forEach>
 					</thead>
 					<thead><%int i =1; %>
-						<th>Colnames</th>
+						<th>Col Names</th>
 						<c:forEach items="${firstrow }" var="row">
 							<th>V<%=i %></th>
 							<%i++; %>
@@ -162,7 +162,7 @@
 								</c:forEach>
 							</thead>
 							<thead>
-								<th>Colnames</th>
+								<th>Col Names</th>
 								<c:forEach items="${firstrow }" var="row">
 									<th>${row }</th>
 								</c:forEach>
@@ -193,7 +193,7 @@
 	         <div class="card-title">
 	         	<h3>Column Type Setting</h3></div>
 	         	<div class="card-body">   
-         <form action="/Anl/anldata/redirectdataview1.do" id="startanlform">			
+         <form method="post" action="/Anl/anldata/dataview1.do" id="startanlform">			
 				 <input type="hidden"  name="header" value="t">
 				<div class="typesel">
 					<c:forEach items="${ncolumn }" var="i">
@@ -217,7 +217,7 @@
 		</div>
 </body>
 <script>
-jQuery.ready()
+//init header
 $(document).ready(function(){
 	$("#headeroff").hide()
 	$("#headeron").show()
@@ -228,6 +228,7 @@ $("#startanlbt").click(function(){
 })
 
 $('.headersel a').click(function(){
+	// convert header value
 	var value = $(this).attr('value')
 	var headervalue = document.getElementsByName('header');
 	$(this).css("background-color",' rgba(30, 22, 54, 0.6)')
@@ -237,7 +238,8 @@ $('.headersel a').click(function(){
 		}else{
 			$('.headersel .button').css("background-color",'white')
 		}
-	}	
+	}
+	//convert header table!!
 	headervalue[0].value = value;
 	if ($(this).attr('value')=='t'){
 		$("#headeroff").hide()

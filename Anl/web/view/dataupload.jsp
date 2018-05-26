@@ -50,13 +50,20 @@
                 </div>
             </div>
             <!-- End Bread crumb -->
-
+  <div class="col-12">
+         <div class="card">
+                            <div class="card-body">
+                            <h4 class="card-title">Only csv (*ver 1.0)</h4>
          <div class="container-fluid">
 			<form action="/Anl/anldata/datasetting.do"  enctype="multipart/form-data" method="post" id="fileform">
 			 	  <input type="file" id="uploadfile" name="uploadfile" required>
-				  <p><img src="/Anl/img/interface2.png"><br>Drag your files here or click in this area.</p>
+				  <p><img src="/Anl/img/interface2.png"><br>Drag your file here or click in this area.</p>
 			</form>
-</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		
 </div>
 
 	
@@ -84,5 +91,6 @@ $(document).ready(function(){
 			    
 	  });
 	});
-
+$('#side_dataupload').attr('class', 'active');
+$('#side_dataupload #side_dataupload1').attr('class', 'active');
 </script>

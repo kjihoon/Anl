@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+//상대경로 문제 아직 미해결
 @Controller
 public class MainController {
 	
@@ -14,41 +14,14 @@ public class MainController {
 	public String mainpage() {
 		return "main";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("/analysis/manual.do")
-	public String manual(Model m) {
-		m.addAttribute("center","manual");
-		return "analysis/main";
-	}
-
-	@RequestMapping("/analysis/about.do")
-	public String about(Model m) {
-		m.addAttribute("center","about");
-		return "analysis/main";
-	}
-	
-	
-	@RequestMapping("/analysis/cancle.do")
+	@RequestMapping("/cancle.do")
 	public String cancle(HttpSession session) {
 		session.invalidate();
-		return "analysis/main";
+		return "main";
 	}
+
+	
+
 
 	
 }

@@ -2533,20 +2533,20 @@ table.dataTable thead .sorting_desc_disabled {
   background: transparent none repeat scroll 0 0;
 }
 table.dataTable thead .sorting_asc::after {
-  content: "";
+  content: "Asc";
   cursor: pointer;
   font-family: fontawesome;
   margin-left: 10px;
 }
 table.dataTable thead .sorting_desc::after {
-  content: "";
+  content: "Des";
   cursor: pointer;
   font-family: fontawesome;
   margin-left: 10px;
 }
 table.dataTable thead .sorting::after {
   color: rgba(50, 50, 50, 0.5);
-  content: "";
+  content: "Sort";
   cursor: pointer;
   font-family: fontawesome !important;
   margin-left: 10px;
@@ -4181,7 +4181,7 @@ table.dataTable thead .sorting::after {
 .invoice-edit .tax:before,
 .invoice-edit #total_price:before,
 .invoice-edit #total_tax:before {
-  content: '€';
+  content: '占쎄�';
 }
 .invoice-edit .me,
 .invoice-edit .info,
