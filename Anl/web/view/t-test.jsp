@@ -3,7 +3,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     
     
 <div class="page-wrapper">
@@ -23,7 +22,7 @@
         
         <div class="col-lg-12">
          <div class="card" id="headeroff">	
-			<div class="card-title">  	<h3>${filename } Information</h3></div>
+			<div class="card-title">  	<h3>Data Name: ${filename }</h3></div>
 			<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
@@ -43,197 +42,177 @@
 			</div>
 			</div>
 		</div>
-         </div>
-         
-         
-         
-         
-         
-         
-         
-         	<div class="col-lg-12">
+	</div>
+         <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
-                                <h4>T-test</h4>
+                                <h4>Student's T-test</h4>
                             </div>
                             <div class="card-body">
                                 <div class="horizontal-form-elements">
-                                    <form method="get" action="hihi" class="form-horizontal">
+                                    <form id="ttestform" action="hihi.do" class="form-horizontal">
                                     <!--step 1 (select method)  -->
                                     <!-- /# column -->
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Input Select</label>
+                                                   <p>Method<code>(Required)</code></p>
                                                     <div class="col-sm-10">                                                        
-                                                        <select class="form-control">
+                                                        <select id='ttest_method' class="form-control">
                                                        			<option>---select----</option>
-																<option class="ttest_method" value="one">One Sample t-test</option>
-																<option class="ttest_method" value="two">Two Sample t-test</option>
+																<option value="one">One Sample t-test</option>
+																<option value="two">Two Sample t-test</option>
 														</select>
                                                     </div>
-                                                </div>                                                
+                                                </div>   
                                             </div>
+                                            <input type="hidden" name="x">
+                                             <input type="hidden" name="alternative">
+                                              <input type="hidden" name="mu">
+                                               <input type="hidden" name="conflevel">                                            
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <!-- /# card -->
                     </div>
-                 <!-- param section!!!  -->
-                 
-                 <div id="ttest_one" class="col-lg-12">
-                        <div class="card card-outline-primary">
-                            <div class="card-header">
-                                <h4 class="m-b-0 text-white">One sample t-test</h4>
+                    
+                    
+                    
+                                                                   <!-- param section!!!  -->                                               
+              	   <div id="ttestone" class="row">
+              	   <div  class="col-lg-12">
+                        <div  class="card">
+                            <div class="card-title">
+                                <h4>Detail Parameter(one-sample)</h4>
                             </div>
                             <div class="card-body">
-                                <form action="#">
-                                    <div class="form-body">
-                                        <h3 class="card-title m-t-15">Person Info</h3>
-                                        <hr>
-                                        <div class="row p-t-20">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">First Name</label>
-                                                    <input type="text" id="firstName" class="form-control" placeholder="John doe">
-                                                    <small class="form-control-feedback"> This is inline help </small> </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <div class="form-group has-danger">
-                                                    <label class="control-label">Last Name</label>
-                                                    <input type="text" id="lastName" class="form-control form-control-danger" placeholder="12n">
-                                                    <small class="form-control-feedback"> This field has error. </small> </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-success">
-                                                    <label class="control-label">Gender</label>
-                                                    <select class="form-control custom-select">
-                                                        <option value="">Male</option>
-                                                        <option value="">Female</option>
-                                                    </select>
-                                                    <small class="form-control-feedback"> Select your gender </small> </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Date of Birth</label>
-                                                    <input type="date" class="form-control" placeholder="dd/mm/yyyy">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Category</label>
-                                                    <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
-                                                        <option value="Category 1">Category 1</option>
-                                                        <option value="Category 2">Category 2</option>
-                                                        <option value="Category 3">Category 5</option>
-                                                        <option value="Category 4">Category 4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Membership</label>
-                                                    <div class="form-check">
-                                                        <label class="custom-control custom-radio">
-                                                            <input id="radio1" name="radio" type="radio" checked class="custom-control-input">
-                                                            <span class="custom-control-indicator"></span>
-                                                            <span class="custom-control-description">Free</span>
-                                                        </label>
-                                                        <label class="custom-control custom-radio">
-                                                            <input id="radio2" name="radio" type="radio" class="custom-control-input">
-                                                            <span class="custom-control-indicator"></span>
-                                                            <span class="custom-control-description">Paid</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        <h3 class="box-title m-t-40">Address</h3>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12 ">
-                                                <div class="form-group">
-                                                    <label>Street</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>City</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>State</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Post Code</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Country</label>
-                                                    <select class="form-control custom-select">
-                                                        <option>--Select your Country--</option>
-                                                        <option>India</option>
-                                                        <option>Sri Lanka</option>
-                                                        <option>USA</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                    </div>
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                                        <button type="button" class="btn btn-inverse">Cancel</button>
-                                    </div>
-                                </form>
+                             <div class="form-group">
+	                            <div class="bttonn-list">
+	                            	 <div class="btn-group-vertical">
+	                                      <p>Variable<code>(Required)</code></p><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                                      <span name="x" class="caret">select</span></button>
+	                                        <ul name='select' id="x" class="dropdown-menu" role="menu">
+	                                           	<c:forEach items="${headername }" var="head">
+													<li name="${head }">${head }</li>
+												</c:forEach>
+	                                        </ul>
+	                                    </div>                                                          
+	                           	</div>
+	                        </div>  
                             </div>
-                        </div>
-                    </div>   
-                    
-                    
-                    
-                           	
+                            <div class="row">
+                            <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <p>Alternative<code>(default: Two.Sided)</code></p><button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                                      <span name="alternative" class="caret">select</span></button>
+	                                        <ul name="select" id="alternative" class="dropdown-menu" role="menu">
+													<li name="two.sided">Two.Sided</li>
+													<li name="less">One.Sided(Less)</li>
+													<li name="greater">One.Sided(Greater)</li>
+	                                        </ul>
+                                        </div>
+	
+                                        <div class="form-group">
+                                        	<p>mu<code>(default: 0, H0: mean of X = 0)</code></p>
+                                            <p class="text-muted m-b-15 f-s-12">Please input it yourself</p>
+                                            <input type="text" name="mu" class="form-control input-rounded" placeholder="0">
+                                        </div>                                        
+                                
+							</div>
+							 <div class="col-lg-4">
+                                       <div class="form-group">
+                                            <p>Confidence level<code>(default: 0.95)</code></p><button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                                      <span name="conflevel" class="caret">select</span></button>
+	                                        <ul name="select" id="conflevel" class="dropdown-menu" role="menu">
+													<li name="0.99">99%</li>
+													<li name="0.97">97%</li>
+													<li name="0.95">95%</li>
+													<li name="0.9">90%</li>
+													<li name="input">Input</li>													
+	                                        </ul>
+                                        </div>
+
+                                        <div id="directinput" class="form-group">
+                                            <p class="text-muted m-b-15 f-s-12">Please input it yourself <code>(0~ 1.0) </code></p>
+                                            <input type="text" class="form-control input-rounded" placeholder="0.95">
+                                        </div>                                                 
+							</div>
+							</div>
+						</div>	
+						 <button id="startanl" class="btn btn-primary btn-block m-b-6" type="button">Start Anl</button>
+                   </div>
+                  
+                    <div  class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Result</h4>
+                            </div>
+                            <div class="card-body">
+                            	                 
+                            </div>
+						</div>	
+						
+                   </div>
+                   </div>
+                   <div id="ttesttwo" class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Detail Parameter(two-sample)</h4>
+                            </div>
+                            <div class="card-body">
+                            	                            
+                            </div>
+						</div>
+                   </div>                          	
          </div>
 </div>
 
 <script>
 $(document).ready(function(){
-	$('#ttest_one').hide();
-});
-$('.ttest_method').click(function(){
-	if($(this).attr('value')=='one'){
-		$('#ttest_one').show();
-	}
+	 $('#ttestone').hide();
+	 $('#ttesttwo').hide();
+	 $('#directinput').hide();
+})
+$(function(){
+	 $("#ttest_method").change(function(){
+	 if($(this).val() =="one"){
+		 $('#ttestone').show();
+		 $('#ttesttwo').hide();
+	  }else{
+		 $('#ttesttwo').show();
+	  	 $('#ttestone').hide();
+	  }
+	});
 });
 
-</script>
-        
+
+
+$(function(){
+	$('.dropdown-menu li').each(function() {
+	 $(this).mouseover(function() {
+         $(this).css ("background-color", "#c0c0c0");
+     });
+     $(this).mouseout(function () {
+         $(this).css("background-color", "#FFF"); 
+     });
+})
+});
+$('ul[name=select] li').click(function(){
+	var a =$(this).parent().attr('id');
+	$('span[name='+a+']').text($(this).html());
+	$('input[name='+a+']').val($(this).attr('name'));
+})
+
+$('#startanl').click(function(){
+	$('#ttestform').submit();
+})
+
+$('#conflevel li').click(function(){
+	if ($(this).attr('name')=='input'){
+		$('#directinput').show();
+	}else{
+		$('#directinput').hide();
+	}
+})
+
+</script>        

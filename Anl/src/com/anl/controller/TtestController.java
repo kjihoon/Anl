@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.anl.vo.Setting;
 import com.anl.vo.Ttest;
 
 import Rfunction.DataHandle;
@@ -20,9 +21,10 @@ import Rfunction.Rsource;
 public class TtestController {
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/analysis/ttest.do")
+	@RequestMapping("/meanestimator/ttest.do")
 	public String ttest(Model model,HttpSession session,Ttest ttest) throws ParseException {
-		List<String> typelist = (List<String>) session.getAttribute("typelist");
+		Setting set = (Setting) session.getAttribute("typelist");
+		List<String> typelist =set.getType(); 
 		List<String> headername = (List<String>) session.getAttribute("headername");
 		String jr = (String) session.getAttribute("dataob");
 	  
