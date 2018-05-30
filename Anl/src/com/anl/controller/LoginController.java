@@ -1,6 +1,7 @@
 package com.anl.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.anl.common.CommandMap;
+import com.anl.user.UserService;
 
 /**
  * Handles requests for the application home page.
@@ -49,6 +53,31 @@ public class LoginController {
 		System.out.println("여기는 googleCallback");
 
 		return "client/googleSuccess";
+	}
+	
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value="/login/login.do",method = { RequestMethod.GET, RequestMethod.POST })
+	public String login(CommandMap cmd,HttpSession session,Model model) throws Exception {
+		System.out.println(cmd.getMap().toString());
+		@SuppressWarnings("rawtypes")
+		Map userInfo = (Map) session.getAttribute("userInfo");
+		String out="";
+		//login interceptor 만들기 전
+		if (userInfo==null) {
+			if (cmd.get("USERID") !=null &&cmd.get("USERPWD") !=null) {
+				userInfo = userService.selectUserOne(cmd.getMap());
+				System.out.println(userInfo.toString());
+				session.setAttribute("userInfo", userInfo);
+				out = "main";
+			}else {
+				out="login/login";
+			}
+		}else {
+			out = "main";
+		}
+		return out;
 	}
 }
 

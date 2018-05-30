@@ -50,7 +50,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="horizontal-form-elements">
-                                    <form id="ttestform" action="../meanestimator/ttest.do" class="form-horizontal">
+                                    <form id="ttestform" class="form-horizontal">
                                     <!--step 1 (select method)  -->
                                     <!-- /# column -->
                                             <div class="col-lg-6">
@@ -67,11 +67,11 @@
                                             </div>
                                             <input type="hidden" name="x">
                                              <input type="hidden" name="alternative">
-                                              <input type="hidden" name="mu">
-                                               <input type="hidden" name="conflevel">
+                                               <input type="hidden" name="conflevel" ">
                                                <input type="hidden" name="y">
                                                <input type="hidden" name="paired">
-                                               <input type="hidden" name="varequal">                                                  
+                                               <input type="hidden" name="varequal">
+                                                <input type="hidden" name="mu">                                                  
                                     </form>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                         <div class="form-group">
                                         	<p>mu<code>(default: 0, H0: mean of X = 0)</code></p>
                                             <p class="text-muted m-b-15 f-s-12">Please input it yourself</p>
-                                            <input type="text" name="mu" class="form-control input-rounded" placeholder="0">
+                                            <input type="text" id="ttestonemu"  class="form-control input-rounded" placeholder="0">
                                         </div>                                        
                                 
 							</div>
@@ -137,7 +137,7 @@
 
                                         <div id="directinput" class="form-group">
                                             <p class="text-muted m-b-15 f-s-12">Please input it yourself <code>(0~ 1.0) </code></p>
-                                            <input type="text" class="form-control input-rounded" placeholder="0.95">
+                                            <input type="text" id="ttestoneconflevel" class="form-control input-rounded" placeholder="0.95">
                                         </div>                                                 
 							</div>
 							</div>
@@ -151,7 +151,11 @@
                                 <h4>Result</h4>
                             </div>
                             <div class="card-body">
-                            	                 
+                            	     <h4 class="card-title">one-sample T-test</h4>  
+                            	     <h4 id="ttestonevar"></h4> 
+                            	     <p  id="ttestoneresult"></p>
+									<img id="ttestoneimg1">
+									<img id="ttestoneimg2">     
                             </div>
 						</div>	
 						
@@ -175,7 +179,17 @@ $(document).ready(function(){
 	 $('#ttestone').hide();
 	 $('#ttesttwo').hide();
 	 $('#directinput').hide();
+
+	 $('#ttestonemu').bind('change keyup paste', function () {
+		$('input[name=mu]').attr('value',$(this).val())
+	 })
+	 $('#ttestoneconflevel').bind('change keyup paste', function () {
+		$('input[name=conflevel]').attr('value',$(this).val())
+	 })
+
 })
+
+
 $(function(){
 	 $("#ttest_method").change(function(){
 	 if($(this).val() =="one"){
@@ -187,7 +201,6 @@ $(function(){
 	  }
 	});
 });
-
 
 
 $(function(){
@@ -202,17 +215,54 @@ $(function(){
 });
 $('ul[name=select] li').click(function(){
 	var a =$(this).parent().attr('id');
-	$('span[name='+a+']').text($(this).html());
+	$('span[name='+a+']').text($(this).html());	
 	$('input[name='+a+']').val($(this).attr('name'));
 })
 
+
 $('#startanl').click(function(){
-	$('#ttestform').submit();
+
+	if ( ($('input[name=x]').val()).length<1 ){
+		alert("Please select variable!!")
+	}else if(isNaN($('input[name=mu]').val())){
+		alert("mu must be number")
+	}else if(isNaN($('input[name=conflevel]').val())){
+		alert("confidence level must be number")
+	}else{
+		$('#ttestoneimg1').attr('src',"");
+    	$('#ttestoneimg2').attr('src',"");
+    	$('#startanl').hide()
+    	$('#ttestoneresult').hide()
+    	$('#ttestonevar').hide()
+		var formData = $("#ttestform").serialize();
+		$.ajax({
+				type : "POST",
+				url : "../meanestimator/ttest.do",
+				cache : false,
+				data : formData,
+				success:function(data){
+					var a = JSON.parse(data);					
+		        	$('#ttestonevar').html(a.xvar);
+		        	$('#ttestoneresult').html(a.result);
+		        	$('#ttestoneimg1').attr('src',a.imgpath1);
+		        	$('#ttestoneimg2').attr('src',a.imgpath2);
+		        	$('#ttestoneresult').show()
+		        	$('#ttestonevar').show()
+		        	$('#startanl').show()
+		         },
+		        error:function(){
+		           alert("fail")
+		        }
+			});
+		
+	}
+	
 })
 
 $('#conflevel li').click(function(){
 	if ($(this).attr('name')=='input'){
 		$('#directinput').show();
+		
 	}else{
 		$('#directinput').hide();
 	}

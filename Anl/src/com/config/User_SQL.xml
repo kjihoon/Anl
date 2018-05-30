@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<select id="selectUserList" parameterType="hashmap"
+		resultType="hashmap">        
+            select * from anluser
+	</select>
+	
+	<select id="selectUserOne" parameterType="hashmap"
+		resultType="hashmap">        
+			SELECT * FROM ANLUSER WHERE USERID = #{USERID} AND USERPWD = #{USERPWD}
+	</select>
+	
+
+</mapper>
