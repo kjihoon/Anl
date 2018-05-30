@@ -81,6 +81,7 @@ public class AnlController {
 		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
 		List<String> headername = (List<String>) session.getAttribute("headername");
 		Setting set = (Setting) session.getAttribute("typelist");
+		System.out.println(set.toString());
 		if (data==null) {
 			model.addAttribute("center","dataupload");
 		}else {
@@ -109,8 +110,7 @@ public class AnlController {
 				if (headerinfo.equals("t")) {
 					start = 1;
 					List<String> header =  new ArrayList<String>();
-					header = data.get(0); //header name
-					
+					header = data.get(0); //header name					
 					for (int i=0;i<header.size();i++)
 						headername.add(header.get(i).replaceAll("\\p{Z}", ""));//remove trim
 				}else {

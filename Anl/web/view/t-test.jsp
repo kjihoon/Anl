@@ -50,7 +50,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="horizontal-form-elements">
-                                    <form id="ttestform" action="hihi.do" class="form-horizontal">
+                                    <form id="ttestform" action="../meanestimator/ttest.do" class="form-horizontal">
                                     <!--step 1 (select method)  -->
                                     <!-- /# column -->
                                             <div class="col-lg-6">
@@ -68,7 +68,10 @@
                                             <input type="hidden" name="x">
                                              <input type="hidden" name="alternative">
                                               <input type="hidden" name="mu">
-                                               <input type="hidden" name="conflevel">                                            
+                                               <input type="hidden" name="conflevel">
+                                               <input type="hidden" name="y">
+                                               <input type="hidden" name="paired">
+                                               <input type="hidden" name="varequal">                                                  
                                     </form>
                                 </div>
                             </div>

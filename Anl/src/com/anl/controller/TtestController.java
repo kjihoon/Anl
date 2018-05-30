@@ -15,6 +15,7 @@ import com.anl.vo.Setting;
 import com.anl.vo.Ttest;
 
 import Rfunction.DataHandle;
+import Rfunction.Rdata;
 import Rfunction.Rsource;
 
 @Controller
@@ -23,25 +24,24 @@ public class TtestController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/meanestimator/ttest.do")
 	public String ttest(Model model,HttpSession session,Ttest ttest) throws ParseException {
+		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
+		List<String> headername =(List<String>) session.getAttribute("headername");
 		Setting set = (Setting) session.getAttribute("typelist");
-		List<String> typelist =set.getType(); 
-		List<String> headername = (List<String>) session.getAttribute("headername");
-		String jr = (String) session.getAttribute("dataob");
-	  
-		DataHandle dh= new DataHandle();
+		List<String> typelist = set.getType();
+		Rdata rdata = new Rdata();
 		RConnection rconn=null;
 		String cmd ="";
 		String [] result=null;
 		try {
 			if (ttest.getX()!=null) {
-				rconn = dh.genVar(jr,headername,typelist,6311);
+				rconn = rdata.genVar(data, typelist, headername, 6311);
 				new Rsource();
 				String rs = Rsource.getTtest();
 				rconn.eval(rs);
 				List<String> list = new ArrayList<>();
 				list.add(ttest.getX());
 				list.add(ttest.getY());
-				list.add(ttest.getAlternative());
+				list.add("'"+ttest.getAlternative()+"'");
 				list.add(ttest.getMu());
 				list.add(ttest.getPaired());
 				list.add(ttest.getVarequal());
@@ -49,11 +49,11 @@ public class TtestController {
 				String [] varlist= ttest.getVarlist();
 				cmd = varlist[0]+"="+list.get(0);
 				for (int i =1;i<list.size();i++) {
-					if (!list.get(i).equals("")) {
+					if (!list.get(i).equals("")&&!list.get(i).equals("''")) {
 						cmd += ","+varlist[i]+"="+list.get(i);
 					}
 				}
-
+				
 				cmd ="model<-fun_ttest("+cmd+")";
 				rconn.eval(cmd);
 				
@@ -64,15 +64,13 @@ public class TtestController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("오류오류");
 		}finally {
 			if (rconn!=null) {
 				rconn.close();
 			}
 		}
-		model.addAttribute("buttonhoover","ttest");
-		model.addAttribute("ttest", result);
-		model.addAttribute("center","ttest/ttest");
-		return "analysis/main";
+		return "main";
 	}
 
 }
