@@ -166,9 +166,7 @@
                             <div class="card-title">
                                 <h4>Detail Parameter(two-sample)</h4>
                             </div>
-                            <div class="card-body">
-                            	                            
-                            </div>
+                            
 						</div>
                    </div>                          	
          </div>
