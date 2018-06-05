@@ -14,14 +14,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception { 
 		String path = request.getServletPath();
-		if(path.equals("/admin/login.do")) {  
+		if(path.equals("/login/login.do")||path.equals("/login/loginimp.do")) {  
 			return true;
 		}else {  
 			@SuppressWarnings("unchecked") 
-			Map<String, Object> userMap = (Map<String, Object>) request.getSession().getAttribute("adminInfo");	 	 
+			Map<String, Object> userMap = (Map<String, Object>) request.getSession().getAttribute("userInfo");	 	 
 			if(userMap == null) {
 				log.debug("==========Detect Abnormal Approach==============");
-				response.sendRedirect("login.do");  
+				response.sendRedirect("../Anl/login/login.do");  
 				return false;  
 			} else {   
 				return true;  

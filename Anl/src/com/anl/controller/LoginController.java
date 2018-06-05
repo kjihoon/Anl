@@ -1,6 +1,7 @@
 package com.anl.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -19,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.anl.common.CommandMap;
 import com.anl.user.UserService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class LoginController {
 
+	private int clientNum =0;
+	
+	
 	/* GoogleLogin */
 	@Autowired
 	private GoogleConnectionFactory googleConnectionFactory;
@@ -58,24 +59,28 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="/login/login.do",method = { RequestMethod.GET, RequestMethod.POST })
-	public String login(CommandMap cmd,HttpSession session,Model model) throws Exception {
+	@RequestMapping("/login/login.do")
+	public String login() {
+		return "login/login";
+	}
+	
+	
+	@RequestMapping(value="/login/loginimp.do",method = { RequestMethod.GET, RequestMethod.POST })
+	public String loginimp(CommandMap cmd,HttpSession session,Model model) throws Exception {
 		System.out.println(cmd.getMap().toString());
-		@SuppressWarnings("rawtypes")
-		Map userInfo = (Map) session.getAttribute("userInfo");
 		String out="";
-		//login interceptor 만들기 전
-		if (userInfo==null) {
-			if (cmd.get("USERID") !=null &&cmd.get("USERPWD") !=null) {
-				userInfo = userService.selectUserOne(cmd.getMap());
-				System.out.println(userInfo.toString());
+		Map<String, Object> userInfo =new HashMap<>();
+		if (cmd.get("USERID")!=null) { 
+			userInfo = userService.selectUserOne(cmd.getMap());//actual client Info	
+			if (userInfo==null) {
+				System.out.println("로그인 실패");
+				out="login/login";
+			}else {			
 				session.setAttribute("userInfo", userInfo);
 				out = "main";
-			}else {
-				out="login/login";
 			}
-		}else {
-			out = "main";
+		}else { //if try login page without ID and PWE..
+			out = "login/login";
 		}
 		return out;
 	}

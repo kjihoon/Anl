@@ -24,7 +24,9 @@ import functionSet.OtherFun;
 
 @Controller
 public class AnlController {
-
+	
+	
+	
 	
 	
 	@RequestMapping("/anldata/dataupload.do")

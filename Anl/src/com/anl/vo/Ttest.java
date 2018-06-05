@@ -5,9 +5,10 @@ import java.util.List;
 
 public class Ttest {
    
-    private String x,y,alternative,mu,paired,varequal,conflevel,clientid;
-    private String[] varlist = {"x","y","alternative","mu","paired","varequal","conflevel","clientid"};
-    
+    private String x,y,alternative,mu,paired,varequal,conflevel,clientid,x0;
+
+
+	private String[] varlist = {"x","y","alternative","mu","paired","varequal","conflevel","clientid"};
 	@Override
 	public String toString() {
 		return "Ttest [x=" + x + ", y=" + y + ", alternative=" + alternative + ", mu=" + mu + ", paired=" + paired
@@ -15,6 +16,15 @@ public class Ttest {
 				+ Arrays.toString(varlist) + "]";
 	}
 
+	
+	
+    public String getX0() {
+		return x0;
+	}
+
+	public void setX0(String x0) {
+		this.x0 = x0;
+	}
 	public String getClientid() {
 		return clientid;
 	}

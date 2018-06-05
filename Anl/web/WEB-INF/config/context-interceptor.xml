@@ -27,11 +27,11 @@
 			<beans:bean id="loggerInterceptor"
 				class="com.anl.logger.LoggerInterceptor"></beans:bean>
 		</interceptor>
-		<!-- <interceptor>
+		<interceptor>
 			<mapping path="/**" />
 			<beans:bean id="loginInterceptor"
 				class="com.anl.logger.LoginInterceptor"></beans:bean>
-		</interceptor> -->
+		</interceptor>
 	</interceptors>
 
 
