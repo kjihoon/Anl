@@ -165,10 +165,17 @@ public class AnlController {
 	
 	
 	
-	////////////////////////ttest
+	////////////////////////ttest nav button
 	@RequestMapping("/anldata/ttest.do")
 	public String ttest(Model model) {
 		model.addAttribute("center","t-test");
+		return "main";
+	}
+////////////////////////reg nav button
+	@RequestMapping("/anldata/simplereg.do")
+	public String simplereg(Model model) {
+		
+		model.addAttribute("center", "simplereg");
 		return "main";
 	}
 	

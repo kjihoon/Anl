@@ -47,7 +47,7 @@
             <div class="card-title">
                <h4>Student's T-test</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="select_method">
                <div class="horizontal-form-elements">
                   <form id="ttestform" class="form-horizontal">
                      <!--step 1 (select method)  -->
@@ -143,6 +143,7 @@
                </div>
             </div>
             <button id="startanl" class="btn btn-primary btn-block m-b-6" type="button">Start Anl</button>
+             <button id="reloadpage" onclick="window.location.reload()" class="btn btn-primary btn-block m-b-6" type="button">Another Parameter</button>
          </div>
          </div>
 
@@ -242,7 +243,8 @@
                   </div>
                </div>
                   </div>
-                   <button id="startanl2" class="btn btn-primary btn-block m-b-6" type="button">Start Anl</button>                     
+                   <button id="startanl2" class="btn btn-primary btn-block m-b-6" type="button">Start Anl</button>
+                    <button id="reloadpage2" onclick="window.location.reload()" class="btn btn-primary btn-block m-b-6" type="button">Another Parameter</button>                     
             </div>
          </div>
        </div>
@@ -269,7 +271,9 @@
    	 $('#ttesttwo').hide();
    	 $('#directinput').hide();
    	 $('#directinput2').hide();
-   
+   	 $("#reloadpage").hide();
+   	$("#reloadpage2").hide();
+  	 
    	 $('#ttestonemu').bind('change keyup paste', function () {
    		$('input[name=mu]').attr('value',$(this).val())
    	 })
@@ -294,7 +298,7 @@
    		 $('#ttesttwo').hide();
    	  }else{
    		 $('#ttesttwo').show();
-   		$('input').attr("value","")
+   		 $('input').attr("value","")
    	  	 $('#ttestone').hide();
    	  }
    	});
@@ -346,7 +350,9 @@
    		        	$('#ttestoneimg2').attr('src',a.imgpath2);
    		        	$('#ttestoneresult').show()
    		        	$('#ttestonevar').show()
-   		        	$('#startanl').show()
+   		            $("#reloadpage").show();
+   		        	
+   		        	$('#select_method').hide();
    		         },
    		        error:function(){
    		           alert("fail")
@@ -409,7 +415,9 @@ $('#conflevel2 li').click(function(){
    		        	$('#ttestoneimg2').attr('src',a.imgpath2);
    		        	$('#ttestoneresult').show()
    		        	$('#ttestonevar').show()
-   		        	$('#startanl2').show()
+   		            $("#reloadpage2").show();
+   		        	
+   		        	$('#select_method').hide();
    		         },
    		        error:function(){
    		           alert("fail")

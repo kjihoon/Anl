@@ -1,6 +1,6 @@
 package com.anl.controller;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anl.common.CommandMap;
 import com.anl.vo.Setting;
-import com.anl.vo.Ttest;
 
 import Rfunction.Rdata;
 import Rfunction.Rsource;
@@ -78,6 +77,7 @@ public class MeanEstimatorController {
 				}
 				jo.put("result", jr);
 				jo.put("xvar", map.get("x"));
+				
 				jo.put("imgpath1", "/Anl/img/"+userid+"ttest_hist.png");
 				jo.put("imgpath2", "/Anl/img/"+userid+"ttest_box.png");
 			
@@ -145,7 +145,9 @@ public class MeanEstimatorController {
 			rconn.eval(rs);
 			cmd ="model<-fun_ttest("+cmd+")";
 			System.out.println("Rcommand :"+cmd);
+			
 			rconn.eval(cmd);				
+			
 			String [] result = rconn.eval("model$result").asStrings();
 			JSONArray jr = new JSONArray();
 			for (String s : result) {
@@ -153,6 +155,8 @@ public class MeanEstimatorController {
 			}
 			jo.put("result", jr);
 			jo.put("xvar", "x: "+map.get("x")+"<br> y:"+map.get("y"));
+			
+			
 			jo.put("imgpath1", "/Anl/img/"+userid+"ttest_hist.png");
 			jo.put("imgpath2", "/Anl/img/"+userid+"ttest_box.png");	
 			

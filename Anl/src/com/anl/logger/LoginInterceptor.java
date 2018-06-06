@@ -21,7 +21,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			Map<String, Object> userMap = (Map<String, Object>) request.getSession().getAttribute("userInfo");	 	 
 			if(userMap == null) {
 				log.debug("==========Detect Abnormal Approach==============");
-				response.sendRedirect("../Anl/login/login.do");  
+				response.sendRedirect("../login/login.do");  
 				return false;  
 			} else {   
 				return true;  

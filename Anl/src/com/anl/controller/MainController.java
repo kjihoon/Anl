@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 	
-	@RequestMapping("/mainpage.do")
+	@RequestMapping("/anldata/mainpage.do")
 	public String mainpage() {
-		return "main";
+		return "login/login";
 	}
-	@RequestMapping("/cancle.do")
+	@RequestMapping("/anldata/cancle.do")
 	public String cancle(HttpSession session) {
 		session.invalidate();
-		return "main";
+		return "login";
 	}
 
 	
