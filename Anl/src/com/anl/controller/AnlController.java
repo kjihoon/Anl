@@ -178,6 +178,12 @@ public class AnlController {
 		model.addAttribute("center", "simplereg");
 		return "main";
 	}
+	@RequestMapping("/anldata/multireg.do")
+	public String multireg(Model model) {
+		
+		model.addAttribute("center", "multireg");
+		return "main";
+	}
 	
 	
 }

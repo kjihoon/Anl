@@ -50,7 +50,7 @@
                 
                 <!-- Logo ## anl icon으로 변경-->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/Anl/mainpage.do">
+                    <a class="navbar-brand" href="/Anl/anldata/mainpage.do">
                         <!-- Logo icon -->
                         <b><img src="/Anl/images/logo.png" alt="homepage" class="dark-logo" /></b>
                         <!--End Logo icon -->
@@ -309,7 +309,7 @@
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu" >Regression(OLS)</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="/Anl/anldata/simplereg.do">Simple Regression</a></li>
-                                <li><a href="form-layout.html">Multiple Regression</a></li>
+                                <li><a href="/Anl/anldata/multireg.do">Multiple Regression</a></li>
                                 <li><a href="form-dropzone.html">Logistic Regression</a></li>
                                 <li><a href="form-validation.html">Compare Models</a></li>
                                 <li><a href="form-editor.html">Step Wise</a></li>

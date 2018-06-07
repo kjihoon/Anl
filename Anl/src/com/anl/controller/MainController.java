@@ -12,7 +12,7 @@ public class MainController {
 	
 	@RequestMapping("/anldata/mainpage.do")
 	public String mainpage() {
-		return "login/login";
+		return "main";
 	}
 	@RequestMapping("/anldata/cancle.do")
 	public String cancle(HttpSession session) {

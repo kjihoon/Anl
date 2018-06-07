@@ -80,7 +80,7 @@ body {
 	                        		</div>
 	                            </div>
 	                            <div class="form-bottom">
-				                    <form role="form" action="loginimp.do" method="post" class="login-form">
+				                    <form role="form" action="/Anl/login/loginimp.do" method="post" class="login-form">
 				                    	<div class="form-group">
 				                    		<label class="sr-only" for="USERID"></label>
 				                        	<input type="text" name="USERID" placeholder="Username..." class="form-username form-control" id="userid">

@@ -14,7 +14,7 @@
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Simple Regression</li>
+                        <li class="breadcrumb-item active">Multiple Regression</li>
                     </ol>
                 </div>
             </div>
@@ -50,19 +50,23 @@
         <div class="col-lg-12">
          <div class="card" id="headeroff">
             <div class="card-title">
-               <h3>Simple Regression</h3>
+               <h3>Multiple Regression</h3>
             </div>
              <div class="card-subtitle">
                <p>(Ordinary least squares)</p>
             </div>
             <div class="card-body">
             	<form id="regform">
-            		<input type="hidden" name="x">
-            		<input type="hidden" name="y">
+            	<%int i=0; %>
+            	 <c:forEach items="${headername }" var="head">
+                    <input type="text" name="x<%=i %>">
+                    <%i++; %>
+                 </c:forEach>            		
+            		<input type="text" name="y">
             		<input type="hidden" name="group">
             	</form>
-            	<p>Formula(b0: bias, b1: slope of x)</p>
-				<h3 id="formula"></h3>
+            	<p>Formula(b0: bias, bX: coefficients)</p>
+				<h5 id="formula"></h5>
 				
             <div class="form-group">
                      <div class="bttonn-list">
@@ -71,18 +75,21 @@
                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                            <span name="y" class="caret">select</span></button>
                            <ul name='select' id="y" class="dropdown-menu" role="menu">
+                             
                               <c:forEach items="${headername }" var="head">
-                                 <li name="${head }">${head }</li>
+                                 <li value="${head }" name="y">${head }</li>
                               </c:forEach>
                            </ul>
                         </div> 
                         <div class="btn-group-vertical">
-                           <p>Independent Variable(X)<code>(Required)</code></p>
+                           <p>Independent Variables(Multiple Choice)<code>(Required)</code></p>
                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                            <span name="x" class="caret">select</span></button>
                            <ul name='select' id="x" class="dropdown-menu" role="menu">
-                              <c:forEach items="${headername }" var="head">
-                                 <li name="${head }">${head }</li>
+                               <%int j=0; %>
+                              <c:forEach items="${headername }" var="head">                              
+                                 <li value="${head }" name="x<%=j %>">${head }</li>
+                                  <%j++; %>
                               </c:forEach>
                            </ul>
                         </div>                    
@@ -135,11 +142,29 @@
          </div>
 </div>
 <script>
-
+var xlist="";
+var fomlist=[];
+function removeA(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
 $(document).ready(function(){
 	$('#reloadpage').hide();
 	$('#residualanl').hide();
 	$('#residualanlbt').hide();
+	xlist= "${headername}"
+	xlist.replace("[","")
+	xlist.replace("]","")	
+	xlist= xlist.split(',');
+	
+	
+	
 	
 })
 
@@ -156,101 +181,56 @@ $(function(){
 });
 var x ="x";
 var y ="y";
-var checkx="x";
-var checky="y";
-$('#formula').text("$$ \\color{red}\\widehat{"+y+"}\\color{black}  = b0 +  b1\\color{red}"+x+"$$");
+var bnum=0;
+$('#formula').text("$$ \\color{red}\\widehat{"+y+"}\\color{black}  = b0 +  bX\\color{red}"+x+"$$");
+
 $('ul[name=select] li').click(function(){
-   	var a =$(this).parent().attr('id');
-   	$('span[name='+a+']').text($(this).html());	
-   	$('input[name='+a+']').val($(this).attr('name'));
-   	if (a=="x"){   		
-   		window.x = $(this).html()
-   		checkx ="xx";
-   	}
- 	if (a=="y"){   		
-   		window.y = $(this).html()
-   		checky="yy";
-   	}
- 	if (checkx=="xx"&&checky=="yy"){
- 		$('#formula').text("$$  \\color{purple}\\widehat{"+y+"} \\color{black}  = b0 +  b1\\color{purple}"+x+"$$");
- 	}else{
- 		$('#formula').text("$$  \\color{red}\\widehat{"+y+"} \\color{black}  = b0 +  b1\\color{red}"+x+"$$");
- 	} 	
- 	MathJax.Hub.Queue(['Typeset',MathJax.Hub,'result']);
-})
-
-
-
-
- 
-$('#startanl').click(function(){
-	if ( ($('input[name=x]').val()).length<1 || ($('input[name=y]').val()).length<1  ){
-   		alert("Please select variable!!")
-	}else if( $('input[name=x]').val() == $('input[name=y]').val() ){
-   		alert("select difference variables")
+	
+	
+	
+	var a =$(this).parent().attr('id');
+   	$('span[name='+a+']').text($(this).html());
+   	if (a =="x"){
+   		var xname = $(this).attr('name')
+   		if ($('input[name='+xname+']').val() == $(this).attr('value')){
+   			fomlist=removeA(fomlist,$('input[name='+xname+']').val())
+   			//이미 클릭
+   			$('input[name='+xname+']').val("");
+   		}else{
+   			$('input[name='+xname+']').val($(this).attr('value'));
+   			x=$(this).attr('value')
+   			fomlist.push(x)
+   		}
+  
    	}else{
-   		$('#simpleregimg1').attr('src',"");
-       	$('#simpleregimg2').attr('src',"");
-       	$('#simpleregresult').hide();
-       	$('#startanl').hide();
-   		var formData = $("#regform").serialize();
-   		$.ajax({
-   				type : "POST",
-   				url : "../regression/simplereg.do",
-   				cache : false,
-   				data : formData,
-   				 async: false,
-   				success:function(data){
-   					var a = JSON.parse(data);	
-   					$('#simpleregimg1').attr('src',a.imgpath1);
-       				$('#simpleregimg2').attr('src',a.imgpath2);
-       				$('#simpleregresult').html(a.result);
-       				$('#simpleformula').html(a.formula);   					
-       				$('#simpleregresult').show();
-       				$('#simpleformula').show();
-       				$('#reloadpage').show();
-       				$('#residualanlbt').show();
-       				var b1 = a.beta[1];
-       				b1 =  Number(b1);
-       				if (b1>0){
-       					b1 = "+" + b1;
-       				}
-       				$('#formula').text("$$  \\color{purple}\\widehat{"+y+"} \\color{black}  = "+a.beta[0]+" "+b1+"\\color{purple}"+x+"$$");
-       				MathJax.Hub.Queue(['Typeset',MathJax.Hub,'result']);
-   		         },
-   		        error:function(){
-   		           alert("fail")
-   		        }
-   			});
-   		
+   		$('input[name='+a+']').val($(this).attr('value'));
+   		y = $(this).attr('value')
    	}
-   	
-   })
-
-$('#residualanlbt').click(function(){
-	var formData = $("#regform").serialize();
-	$.ajax({
-		type : "POST",
-		url : "../regression/simpleregresid.do",
-		cache : false,
-		data : formData,
-		success:function(data){
-			var a = JSON.parse(data);	
-			$('#residtest').html(a.residtest);
-			$('#residinfluence').html(a.residinfluence);
-			$('#residimg1').attr('src',a.imgpath1);
-			$('#residimg2').attr('src',a.imgpath2);
-			$('#residimg3').attr('src',a.imgpath3);
-			$('#residualanl').show();
-			$('#residualanlbt').hide();
-		},
-		fail:function(){
-			alert("fail")
-		}
-		
-	})
+	var fom1 = "$$ \\color{purple}\\widehat{"+y+"}"
+   	var fom2 = "\\color{black}  =b0"
+   	var str=""
+   	for (i = 0; i < fomlist.length; i++) { 
+   		if ((i+1)%2==0){
+   			str+="$$ $$";
+   		}
+   	   str += "\\color{black} +b"+(i+1)+"\\color{purple}"+fomlist[i]+"";
+   	}
+   	if (fomlist.length<1){
+   		str = "+ bX\\color{red}x";
+   	}
+   	$('#formula').text(fom1+fom2+str+"$$");
+   	MathJax.Hub.Queue(['Typeset',MathJax.Hub,'result']);
 })
+   
 
+
+
+
+$("#startanl").click(function(){
+	
+	var formData = $("#regform").serialize();
+	alert(formData)
+})
 </script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
