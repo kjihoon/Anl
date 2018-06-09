@@ -34,6 +34,31 @@
     <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<!-- loading animation -->
+<style>
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -297,7 +322,7 @@
                                 <li><a href="ui-typography.html">...</a></li>
                             </ul>
                         </li>
-						<li  id="side_meanestimator"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu" >Mean Estimator <span class="label label-rouded label-danger pull-right">6</span></span></a>
+						<li  id="side_meanestimator"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu" >Mean Estimator <!-- <span class="label label-rouded label-danger pull-right">6</span> --></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="/Anl/anldata/ttest.do">T-test</a></li>
                                 <li><a href="uc-nestedable.html">ANOVA (One-Way)</a></li>

@@ -255,7 +255,9 @@
                   <h4>Result</h4>
                </div>
                <div class="card-body">
+               
                   <h4 class="card-title">T-test</h4>
+                  <div class="loader" style="float:center;"></div>
                   <h4 id="ttestonevar"></h4>
                   <p id="ttestoneresult"></p>
                   <img id="ttestoneimg1">
@@ -273,7 +275,7 @@
    	 $('#directinput2').hide();
    	 $("#reloadpage").hide();
    	$("#reloadpage2").hide();
-  	 
+  	 $('.loader').hide()
    	 $('#ttestonemu').bind('change keyup paste', function () {
    		$('input[name=mu]').attr('value',$(this).val())
    	 })
@@ -331,6 +333,7 @@
    	}else if(isNaN($('input[name=conflevel]').val())){
    		alert("confidence level must be number")
    	}else{
+   		$('.loader').show()
    		$('#ttestoneimg1').attr('src',"");
        	$('#ttestoneimg2').attr('src',"");
        	$('#startanl').hide()
@@ -353,6 +356,7 @@
    		            $("#reloadpage").show();
    		        	
    		        	$('#select_method').hide();
+   		        	$('.loader').hide()
    		         },
    		        error:function(){
    		           alert("fail")

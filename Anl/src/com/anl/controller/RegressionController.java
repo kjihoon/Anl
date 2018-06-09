@@ -154,12 +154,166 @@ public class RegressionController {
 				rconn.close();
 			}
 		}
-		
-		
-		
-		
-		
-		
+
 		return jo.toJSONString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("regression/multiregresid.do")
+	@ResponseBody
+	public String multiregresid(CommandMap map,Model model,HttpSession session) {
+		System.out.println("param"+map.getMap().toString());
+		Map<String,String> userInfo = (Map<String, String>) session.getAttribute("userInfo");
+		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
+		List<String> headername =(List<String>) session.getAttribute("headername");
+		Setting set = (Setting) session.getAttribute("typelist");
+		List<String> typelist = set.getType();
+		Rdata rdata = new Rdata();
+		RConnection rconn=null;
+		String cmd ="";
+		String userid=userInfo.get("USERID");
+		Set<String> checkset = new HashSet<>();
+		String formula ="";
+		for (String key:map.getMap().keySet()) {
+			if (map.getMap().get(key).equals("")) {
+				checkset.add(key);
+			}else {
+				if (key.substring(0,1).equals("x")) {
+					formula += map.get(key)+"+";
+				}
+			}
+		}
+		
+		map.getMap().keySet().removeAll(checkset);
+		formula =map.get("y")+"~"+formula.substring(0, formula.length()-1);
+		cmd += "formula="+formula+",clientid='"+userid+"'";
+		if (map.get("dw")!=null) {
+			cmd +=",max.lag="+map.get("dw");
+		}
+		System.out.println("Rparam:"+cmd);
+		JSONObject jo = new JSONObject();
+		try {
+			rconn = rdata.genVar(data, typelist, headername, 6311);
+			new Rsource();
+			String rs = Rsource.getMultireg();
+			rconn.eval(rs);
+			rconn.eval("model<-fun_multireg_resid("+cmd+")");
+			
+			if (map.get("dw")!=null) {
+				String [] dw =rconn.eval("model$dw").asStrings();
+				JSONArray dwjr= new JSONArray();
+				for (String a: dw) {
+					dwjr.add(a+"<br>");
+				}
+				jo.put("dw", dwjr);
+			}			
+			String [] residtest =rconn.eval("model$residtest").asStrings();
+			JSONArray residtestjr = new JSONArray();			
+			for (String a: residtest) {
+				residtestjr.add(a+"<br>");
+			}
+			
+			String [] residinfluence =rconn.eval("model$influence").asStrings();
+			JSONArray residinfluencejr = new JSONArray();			
+			for (String a: residinfluence) {
+				residinfluencejr.add(a+"<br>");
+			}
+			jo.put("residinfluence", residinfluencejr);
+			jo.put("residtest", residtestjr);
+			jo.put("imgpath1", "/Anl/img/"+userid+"multireg_resid.png");
+			jo.put("imgpath2", "/Anl/img/"+userid+"multireg_influence.png");
+			jo.put("imgpath3", "/Anl/img/"+userid+"multireg_influence2.png");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("multi reg resid r error");
+		}finally {
+			if (rconn!=null) {
+				rconn.close();
+			}
+		}
+		System.out.println(jo.toJSONString());
+		return jo.toJSONString();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("regression/multireg.do")
+	@ResponseBody
+	public String multireg(CommandMap map,Model model,HttpSession session) {
+		System.out.println("param"+map.getMap().toString());
+		Map<String,String> userInfo = (Map<String, String>) session.getAttribute("userInfo");
+		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
+		List<String> headername =(List<String>) session.getAttribute("headername");
+		Setting set = (Setting) session.getAttribute("typelist");
+		List<String> typelist = set.getType();
+		Rdata rdata = new Rdata();
+		RConnection rconn=null;
+		String cmd ="";
+		String userid=userInfo.get("USERID");
+		Set<String> checkset = new HashSet<>();
+		String formula ="";
+		for (String key:map.getMap().keySet()) {
+			if (map.getMap().get(key).equals("")) {
+				checkset.add(key);
+			}else {
+				if (key.substring(0,1).equals("x")) {
+					formula += map.get(key)+"+";
+				}
+			}
+		}
+		
+		map.getMap().keySet().removeAll(checkset);
+		formula =map.get("y")+"~"+formula.substring(0, formula.length()-1);
+		cmd += "formula="+formula+",clientid='"+userid+"'";
+		System.out.println("Rparam:"+cmd);
+		JSONObject jo = new JSONObject();
+		try {
+			rconn = rdata.genVar(data, typelist, headername, 6311);
+			new Rsource();
+			String rs = Rsource.getMultireg();
+			rconn.eval(rs);
+			rconn.eval("model<-fun_multireg("+cmd+")");
+			String [] result =rconn.eval("model$summary").asStrings();
+			String [] aov =rconn.eval("model$aov").asStrings();
+			String [] vif =rconn.eval("model$vif").asStrings();
+			String [] beta=rconn.eval("model$beta").asStrings();
+			String [] xnames=rconn.eval("model$xnames").asStrings();
+			JSONArray resultjr= new JSONArray();
+			JSONArray aovjr = new JSONArray();
+			JSONArray vifjr = new JSONArray();
+			JSONArray betajr = new JSONArray();
+			JSONArray xnamesjr = new JSONArray();
+			for (String r: result) {
+				resultjr.add(r+"<br>");
+			}
+			for (String a: aov) {
+				aovjr.add(a+"<br>");
+			}
+			for (String a: vif) {
+				vifjr.add(a+"<br>");
+			}
+			for (String a: beta) {
+				betajr.add(a);
+			}
+			for (String a: xnames) {
+				xnamesjr.add(a);
+			}
+			jo.put("result", resultjr);
+			jo.put("aov", aovjr);
+			jo.put("vif", vifjr);
+			jo.put("beta", betajr);
+			jo.put("xnames", xnamesjr);
+			jo.put("imgpath1", "/Anl/img/"+userid+"multireg_psy.png");
+			
+		}catch(Exception e) {
+			System.out.println("multi reg r error");
+		}finally {
+			if (rconn!=null) {
+				rconn.close();
+			}
+		}
+		return jo.toJSONString();
+	}
+
 }

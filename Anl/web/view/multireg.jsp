@@ -59,11 +59,11 @@
             	<form id="regform">
             	<%int i=0; %>
             	 <c:forEach items="${headername }" var="head">
-                    <input type="text" name="x<%=i %>">
+                    <input type="hidden" name="x<%=i %>">
                     <%i++; %>
                  </c:forEach>            		
-            		<input type="text" name="y">
-            		<input type="hidden" name="group">
+            		<input type="hidden" name="y">
+            		<input type="hidden" name="dw">
             	</form>
             	<p>Formula(b0: bias, bX: coefficients)</p>
 				<h5 id="formula"></h5>
@@ -105,13 +105,22 @@
                   <h4>Result</h4>
                </div>
                <div class="card-body">
-                  <h4 class="card-title">Simple Regression</h4>
+               
+                  <h4 class="card-title">Multiple Regression</h4>
+                  <div class="loader"></div>
                   <h4 id="simpleformula"></h4>
-                  <p id="simpleregresult"></p>
-                  <img id="simpleregimg1">
+                  <p id="multiregresult"></p>
+                  <h4 class="resultheader">ANOVA TABLE</h4> 
+                  <p id="multiregaov"></p> 
+                  <img id="multiregimg1">
                   <img id="simpleregimg2">     
                </div>
             </div>
+            <div id="dubinwatson" class="form-group">
+                        <p>Dubin-Watson Anl<code>(default: False)</code></p>
+                        <p class="text-muted m-b-15 f-s-12">Please input it yourself</p>
+                        <input id="dubinvalue" type="number"  class="form-control input-rounded" placeholder="0">
+                     </div>
              <button id="residualanlbt" class="btn btn-primary btn-block m-b-6" type="button">Residual Anl</button>
          </div>
          <div  id="residualanl" class="card">
@@ -120,6 +129,8 @@
                   <h3>Residual Analysis</h3>
                </div>
                <div  class="card-body">
+               <br>
+               <br>
                <div class="row">
                	  <div  class="col-lg-6">
                	 <h4>Residual Test(Tukey)</h4>
@@ -128,11 +139,19 @@
                	  <div  class="col-lg-6">
                	 <h4>Influence Observation</h4>
                	 <p id="residinfluence"></p>
+               	 
                	 </div>
                	 </div>
+               	 <br>
+               	 <div class="row">
+               	 <div  class="col-lg-6">
+               	  <h4>Dubin-Watson Anl</h4>
+               	  <p id="dw"></p>
+               	  </div>
+               	  </div>
 				 <img id="residimg1">
-                 <img id="residimg3">   
-                 <img id="residimg2">
+                 <img id="residimg2">   
+                 <img id="residimg3">
                 
                </div>
             </div>
@@ -158,14 +177,20 @@ $(document).ready(function(){
 	$('#reloadpage').hide();
 	$('#residualanl').hide();
 	$('#residualanlbt').hide();
+	$('.resultheader').hide()
 	xlist= "${headername}"
 	xlist.replace("[","")
 	xlist.replace("]","")	
 	xlist= xlist.split(',');
+	$('#dubinwatson').hide()
+	$('.loader').hide();
 	
 	
-	
-	
+})
+$(function(){
+	$('#dubinvalue').change(function(){
+		$('input[name=dw]').attr('value',$(this).val());
+	})
 })
 
 //변수 선택 공통 사항!!
@@ -185,9 +210,6 @@ var bnum=0;
 $('#formula').text("$$ \\color{red}\\widehat{"+y+"}\\color{black}  = b0 +  bX\\color{red}"+x+"$$");
 
 $('ul[name=select] li').click(function(){
-	
-	
-	
 	var a =$(this).parent().attr('id');
    	$('span[name='+a+']').text($(this).html());
    	if (a =="x"){
@@ -201,7 +223,6 @@ $('ul[name=select] li').click(function(){
    			x=$(this).attr('value')
    			fomlist.push(x)
    		}
-  
    	}else{
    		$('input[name='+a+']').val($(this).attr('value'));
    		y = $(this).attr('value')
@@ -227,10 +248,80 @@ $('ul[name=select] li').click(function(){
 
 
 $("#startanl").click(function(){
+	$('.loader').show();
+	var formData = $("#regform").serialize();
+	$('#startanl').hide();
+		var formData = $("#regform").serialize();
+		$.ajax({
+				type : "POST",
+				url : "../regression/multireg.do",
+				cache : false,
+				data : formData,
+				 async: false,
+				success:function(data){
+					var a = JSON.parse(data);
+					$('.resultheader').show()
+					$('#multiregresult').html(a.result);
+					$('#multiregaov').html(a.aov);
+					$('#multiregvif').html(a.vif);
+					
+					$('#multiregimg1').attr("src",a.imgpath1);
+					$('#reloadpage').show();
+					$('#residualanlbt').show();
+					$('.loader').hide();
+					var beta = a.beta;
+					var fom1 = "$$ \\color{purple}\\widehat{"+y+"}"
+				   	var fom2 = "\\color{black}  ="+Number(beta[0])
+				   	var str=""
+				   	fomlist = a.xnames
+				   	for (var i=0;i<fomlist.length;i++){
+				   		if ((i+1)%2==0){
+				   			str+="$$ $$";
+				   		}
+				   		if (Number(beta[i+1])>0){
+				   			str+="\\color{black}"+"+"+Number(beta[i+1])+"\\color{purple}"+fomlist[i]+""
+				   		}else{
+				   			str+="\\color{black}"+Number(beta[i+1])+"\\color{purple}"+fomlist[i]+""
+				   		}
+				   		
+				   	}
+				   
+				   	$('#formula').text(fom1+fom2+str+"$$");
+				   	MathJax.Hub.Queue(['Typeset',MathJax.Hub,'result']);
+					$('#dubinwatson').show()
+				},
+				fail:function(){}
+				})
+				
+})
+
+$('#residualanlbt').click(function(){
+	$(this).hide();
 	
 	var formData = $("#regform").serialize();
-	alert(formData)
-})
+ 	$.ajax({
+		type : "POST",
+		url : "../regression/multiregresid.do",
+		cache : false,
+		data : formData,
+		success:function(data){
+			var a = JSON.parse(data);	
+			$('#residualanl').show()
+			$('#residtest').html(a.residtest);
+			$('#residinfluence').html(a.residinfluence);
+			$('#dw').html(a.dw);
+			$('#residimg1').attr('src',a.imgpath1);
+			$('#residimg2').attr('src',a.imgpath2);
+			$('#residimg3').attr('src',a.imgpath3);
+		
+		},
+		fail:function(){
+			alert("fail")
+		}
+		
+	})
+ });
+					
 </script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
