@@ -68,16 +68,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                            <div class="toastr m-t-15">
-                                        <div class="text-left">
-                                            <button type="button" class="btn btn-success m-b-10 m-l-5" id="toastr11">Success</button>
-                                            <button type="button" class="btn btn-info m-b-10 m-l-5" id="toastr-info-top-full-width">Info</button>
-                                            <button type="button" class="btn btn-warning m-b-10 m-l-5" id="toastr-warning-top-full-width">Warning</button>
-                                            <button type="button" class="btn btn-danger m-b-10 m-l-5" id="toastr-danger-top-full-width">Error</button>
-                                        </div>
-                                    </div>
-                            </div>
+                          
                         </div>
          	</div>	
          </div>

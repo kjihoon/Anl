@@ -2,9 +2,13 @@ package com.anl.controller;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,16 +29,51 @@ import functionSet.OtherFun;
 @Controller
 public class AnlController {
 	
-	
-	
-	
-	
 	@RequestMapping("/anldata/dataupload.do")
 	public String dataupload(Model model) {
 	
 		model.addAttribute("center","dataupload");
 		return "main";
 	}
+	@RequestMapping("/anldata/examdata.do")
+	public String examdata(Model model,HttpSession session) {
+		List<List<String>> data = new ArrayList<List<String>>();
+		BufferedReader reader =null;
+		try {
+	    	  reader = Files.newBufferedReader(Paths.get("C:\\Users\\wlwl0\\Documents\\GitHub\\Anl\\Anl\\web\\examdata\\iris.csv"));
+	    	  Charset.forName("UTF-8");
+	    	  String line;		      
+		      while ((line = reader.readLine()) != null) {
+		        List<String> tmp = new ArrayList<String>();
+				String arr[] = line.split(",");
+				tmp = Arrays.asList(arr);
+				data.add(tmp);
+		      }  
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				if(reader !=null)
+					reader.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}	  
+	    
+		
+		session.setAttribute("filename", "IRIS");
+		session.setAttribute("data", data);
+		session.setAttribute("dataon", "1"); //data off
+		model.addAttribute("center","datasetting");		
+		List<Integer> ncolumn = new ArrayList<>();
+		for (int i=1;i<=data.get(0).size();i++)
+			ncolumn.add(i);
+		model.addAttribute("ncolumn",ncolumn);
+		model.addAttribute("firstrow",data.get(0));
+		model.addAttribute("secondrow",data.get(1));
+		return "main";
+	}
+
 	
 	@RequestMapping(value="/anldata/datasetting.do", method=RequestMethod.POST)
 	public String upload(@RequestParam("uploadfile") MultipartFile uploadfile,Model model, HttpSession session) {
@@ -184,6 +223,12 @@ public class AnlController {
 		model.addAttribute("center", "multireg");
 		return "main";
 	}
-	
+	@RequestMapping("/anldata/normaltest.do")
+	public String normaltest(Model model) {
+		
+		model.addAttribute("center", "normaltest");
+		return "main";
+	}
+
 	
 }

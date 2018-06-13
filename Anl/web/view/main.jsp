@@ -94,54 +94,13 @@
                         <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-th-large"></i></a>
                             <div class="dropdown-menu animated zoomIn">
                                 <ul class="mega-dropdown-menu row">
-
-
-                                    <li class="col-lg-3  m-b-30">
-                                        <h4 class="m-b-20">CONTACT US</h4>
-                                        <!-- Contact -->
-                                        <form>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleInputname1" placeholder="Enter Name"> </div>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Enter email"> </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Message"></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-info">Submit</button>
-                                        </form>
-                                    </li>
-                                    <li class="col-lg-3 col-xlg-3 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-3 col-xlg-3 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-3 col-xlg-3 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                        </ul>
+                                    <li class="col-lg-12  m-b-30">
+                                    <h4 class="m-b-20">Question</h4>
+	                                <form method="post">
+	                                    <div class="form-group">
+	                                        <textarea class="textarea_editor form-control" rows="15" placeholder="Enter text ..." style="height:150px"></textarea>
+	                                    </div>
+	                                </form>
                                     </li>
                                 </ul>
                             </div>
@@ -301,6 +260,7 @@
                         <li class="nav-label">Anl Data</li>
                         <li id="side_dataupload"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu" >Data Upload <span class="label label-rouded pull-right" name="dataon">off</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                          		<li><a id="side_dataupload1" href="/Anl/anldata/examdata.do">Example Data</a></li>
                                 <li><a id="side_dataupload1" href="/Anl/anldata/dataupload.do">Upload </a></li>
                                 <li><a id="side_dataupload2" href="/Anl/anldata/redirectdatasetting.do">Setting</a></li>
                             </ul>
@@ -312,16 +272,7 @@
                             </ul>
                         </li>
                          <li class="nav-label">Analysis</li>
-                        <li id="side_descriptivestatic"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu"  >Descriptive Statistic<span class="label label-rouded label-warning pull-right">6</span></span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="ui-alert.html">Histogram</a></li>
-                                <li><a href="ui-button.html">Box Plot</a></li>
-                                <li><a href="ui-dropdown.html">Dot Plot</a></li>
-                                <li><a href="ui-progressbar.html">Bar Plot</a></li>
-                                <li><a href="ui-tab.html">Correlation-test</a></li>
-                                <li><a href="ui-typography.html">...</a></li>
-                            </ul>
-                        </li>
+                       
 						<li  id="side_meanestimator"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu" >Mean Estimator <!-- <span class="label label-rouded label-danger pull-right">6</span> --></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="/Anl/anldata/ttest.do">T-test</a></li>
@@ -348,6 +299,16 @@
                                 <li><a href="form-validation.html">Compare Models</a></li>
                                 <li><a href="form-editor.html">Step Wise</a></li>
                                 <li><a href="form-dropzone.html">Dropzone</a></li>
+                            </ul>
+                        </li>
+                         <li id="side_descriptivestatic"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu"  >Descriptive Statistic<span class="label label-rouded label-warning pull-right">6</span></span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/Anl/anldata/normaltest.do">shapiro-test</a></li>
+                                <li><a href="ui-button.html">Box Plot</a></li>
+                                <li><a href="ui-dropdown.html">Dot Plot</a></li>
+                                <li><a href="ui-progressbar.html">Bar Plot</a></li>
+                                <li><a href="ui-tab.html">Correlation-test</a></li>
+                                <li><a href="ui-typography.html">...</a></li>
                             </ul>
                         </li>
                         <li class="nav-label">Contact Developer</li>

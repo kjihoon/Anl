@@ -130,16 +130,19 @@
                </div>
                <div  class="card-body">
                <br>
+               <img id="residimg2">   
                <br>
+                
                <div class="row">
                	  <div  class="col-lg-6">
                	 <h4>Residual Test(Tukey)</h4>
                	 <p id="residtest"></p>
+               	  <img id="residimg1">
                	  </div>
                	  <div  class="col-lg-6">
                	 <h4>Influence Observation</h4>
                	 <p id="residinfluence"></p>
-               	 
+               	 <img id="residimg3">
                	 </div>
                	 </div>
                	 <br>
@@ -149,10 +152,6 @@
                	  <p id="dw"></p>
                	  </div>
                	  </div>
-				 <img id="residimg1">
-                 <img id="residimg2">   
-                 <img id="residimg3">
-                
                </div>
             </div>
          </div>   
@@ -248,50 +247,74 @@ $('ul[name=select] li').click(function(){
 
 
 $("#startanl").click(function(){
-	$('.loader').show();
-	var formData = $("#regform").serialize();
-	$('#startanl').hide();
-		var formData = $("#regform").serialize();
-		$.ajax({
-				type : "POST",
-				url : "../regression/multireg.do",
-				cache : false,
-				data : formData,
-				 async: false,
-				success:function(data){
-					var a = JSON.parse(data);
-					$('.resultheader').show()
-					$('#multiregresult').html(a.result);
-					$('#multiregaov').html(a.aov);
-					$('#multiregvif').html(a.vif);
-					
-					$('#multiregimg1').attr("src",a.imgpath1);
-					$('#reloadpage').show();
-					$('#residualanlbt').show();
-					$('.loader').hide();
-					var beta = a.beta;
-					var fom1 = "$$ \\color{purple}\\widehat{"+y+"}"
-				   	var fom2 = "\\color{black}  ="+Number(beta[0])
-				   	var str=""
-				   	fomlist = a.xnames
-				   	for (var i=0;i<fomlist.length;i++){
-				   		if ((i+1)%2==0){
-				   			str+="$$ $$";
-				   		}
-				   		if (Number(beta[i+1])>0){
-				   			str+="\\color{black}"+"+"+Number(beta[i+1])+"\\color{purple}"+fomlist[i]+""
-				   		}else{
-				   			str+="\\color{black}"+Number(beta[i+1])+"\\color{purple}"+fomlist[i]+""
-				   		}
-				   		
-				   	}
-				   
-				   	$('#formula').text(fom1+fom2+str+"$$");
-				   	MathJax.Hub.Queue(['Typeset',MathJax.Hub,'result']);
-					$('#dubinwatson').show()
-				},
-				fail:function(){}
-				})
+	
+	var fields = $( "#regform" ).serializeArray();
+    var list = [];
+	jQuery.each( fields, function( i, field ) {
+		if (field.value.length>0){
+			list.push(field.value);
+		}	
+    });
+	var check="ok"
+	$.each(fomlist, function(i, field){
+		if (y==field){
+			check = "incorrect formula, maybe you selected y variable in x variables"
+		}
+	});
+	
+	if (list.length<3){
+		alert("select variables")
+	}else if(($('input[name=y]').val()).length<1){
+		alert("select y")
+	}else if(check != "ok"){
+		alert(check)
+	}else{
+		$('.loader').show();
+		var formData = $("#regform").serialize();	
+		$('#startanl').hide();
+			var formData = $("#regform").serialize();
+			$.ajax({
+					type : "POST",
+					url : "../regression/multireg.do",
+					cache : false,
+					data : formData,
+					 async: false,
+					success:function(data){
+						var a = JSON.parse(data);
+						$('.resultheader').show()
+						$('#multiregresult').html(a.result);
+						$('#multiregaov').html(a.aov);
+						$('#multiregvif').html(a.vif);
+						
+						$('#multiregimg1').attr("src",a.imgpath1);
+						$('#reloadpage').show();
+						$('#residualanlbt').show();
+						$('.loader').hide();
+						var beta = a.beta;
+						var fom1 = "$$ \\color{purple}\\widehat{"+y+"}"
+					   	var fom2 = "\\color{black}  ="+Number(beta[0])
+					   	var str=""
+					   	fomlist = a.xnames
+					   	for (var i=0;i<fomlist.length;i++){
+					   		if ((i+1)%2==0){
+					   			str+="$$ $$";
+					   		}
+					   		if (Number(beta[i+1])>0){
+					   			str+="\\color{black}"+"+"+Number(beta[i+1])+"\\color{purple}"+fomlist[i]+""
+					   		}else{
+					   			str+="\\color{black}"+Number(beta[i+1])+"\\color{purple}"+fomlist[i]+""
+					   		}
+					   		
+					   	}
+					   
+					   	$('#formula').text(fom1+fom2+str+"$$");
+					   	MathJax.Hub.Queue(['Typeset',MathJax.Hub,'result']);
+						$('#dubinwatson').show()
+					},
+					fail:function(){}
+					})	
+	}
+	
 				
 })
 
