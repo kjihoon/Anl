@@ -202,7 +202,7 @@ public class AnlController {
 		return "main";
 	}
 	
-	
+	  
 	
 	////////////////////////ttest nav button
 	@RequestMapping("/anldata/ttest.do")
