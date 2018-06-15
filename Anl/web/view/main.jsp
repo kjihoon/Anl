@@ -8,6 +8,7 @@
 <html lang="en">
 
 <head>
+
  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +35,7 @@
     <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 <!-- loading animation -->
 <style>
@@ -451,8 +453,8 @@
     <script src="/Anl/css/js/scripts.js"></script>
     <!-- scripit init-->
     <script src="/Anl/css/js/custom.min.js"></script>
-    
   
+ 
     
     
 </body>

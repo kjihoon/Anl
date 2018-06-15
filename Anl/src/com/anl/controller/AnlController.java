@@ -2,8 +2,6 @@ package com.anl.controller;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -15,6 +13,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -229,6 +228,22 @@ public class AnlController {
 		model.addAttribute("center", "normaltest");
 		return "main";
 	}
-
+	@RequestMapping("/anldata/sheet.do")
+	public String sheet(Model model,HttpSession session) {
+		List<List<String>> data =(List<List<String>>) session.getAttribute("data");
+		List<String> headername = (List<String>) session.getAttribute("headername");
+		JSONArray jr = new JSONArray();
+		for (int i=0;i<data.size();i++) {
+			jr.add(data.get(i));
+		}
+		model.addAttribute("jrdata",jr);
+		model.addAttribute("center", "sheet");
+		JSONArray jr2 = new JSONArray();
+		for (int i=0;i<headername.size();i++) {
+			jr2.add(headername.get(i));
+		}
+		model.addAttribute("jrheader",jr2);
+		return "main";
+	}
 	
 }

@@ -99,10 +99,10 @@
                     "visible": false,
                     "targets": 2
                 }],
-                "order": [
+                "order": [1	
                     [2, 'asc']
                 ],
-                "displayLength": 25,
+                "displayLength": 50,
                 "drawCallback": function(settings) {
                     var api = this.api();
                     var rows = api.rows({
