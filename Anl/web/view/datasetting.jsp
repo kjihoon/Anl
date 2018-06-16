@@ -211,7 +211,7 @@
 		</form>	
          </div>
 		</div>
-			<button id="startanlbt" class="btn btn-primary btn-lg m-b-10 m-l-5" type="button">Start Anl</button>
+			<button id="startanlbt" class="btn btn-primary btn-lg m-b-12 m-l-6" type="button">Start Anl</button>
 		</div>
 		</div>
 		</div>

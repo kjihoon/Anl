@@ -265,13 +265,12 @@
                           		<li><a id="side_dataupload1" href="/Anl/anldata/examdata.do">Example Data</a></li>
                                 <li><a id="side_dataupload1" href="/Anl/anldata/dataupload.do">Upload </a></li>
                                 <li><a id="side_dataupload2" href="/Anl/anldata/redirectdatasetting.do">Setting</a></li>
-                                <li><a id="side_dataview1" href="/Anl/anldata/redirectdataview1.do">Data View</a></li>
+                                <li><a id="side_dataview1" href="/Anl/anldata/redirectdataview1.do">Data SimpleView</a></li>
                             </ul>
                         </li>
-                         <li id="side_dataview"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu"  >Data Controll<span class="label label-rouded pull-right" name="dataon">off</span></span></a>
+                         <li id="side_dataview"> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu"  >Data Handling<span class="label label-rouded pull-right" name="dataon">off</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                
-                                <li><a id="side_dataview2" href="table-datatable.html">Data Tables</a></li>
+                                <li><a id="side_dataview2" href="/Anl/anldata/sheet.do">Data Sheet</a></li>
                             </ul>
                         </li>
                          <li class="nav-label">Analysis</li>

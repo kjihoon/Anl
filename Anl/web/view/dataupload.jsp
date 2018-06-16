@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <head>
+
 <style>
 .container-fluid form img{
 	width:350px;
@@ -65,6 +66,7 @@
 		</div>
 		
 </div>
+
 
 	
 
