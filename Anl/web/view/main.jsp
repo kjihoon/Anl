@@ -9,7 +9,7 @@
 
 <head>
 
- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+ 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -36,7 +36,7 @@
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <!-- loading animation -->
 <style>
 
