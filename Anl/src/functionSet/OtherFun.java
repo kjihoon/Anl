@@ -1,5 +1,5 @@
 package functionSet;
-
+ 
 public class OtherFun {
 	public boolean checkrealnum(String x) {
 		try {
