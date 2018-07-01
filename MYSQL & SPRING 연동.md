@@ -58,5 +58,5 @@
 
 ### MySQL JDBC 드라이버 Time Zone 이슈
 
-`jdbc:mysql://127.0.0.1:3306/anl?serverTimezone=UTC` ?serverTimezone=UTC로 해결
+`jdbc:mysql://127.0.0.1:3306/anl?serverTimezone=UTC` ?serverTimezone=UTC로 해결 //
 
